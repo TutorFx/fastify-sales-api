@@ -1,12 +1,13 @@
-import { createServer } from 'restify'
-import teste from './routes/teste'
+import { createServer, plugins } from 'restify'
+import db from './utils/db';
+import produto from './routes/produto';
+ 
+const server = createServer();
+const pool = db();
 
-const server = createServer({
-    name: 'restify-sales-api',
-    version: '1.0.0'
-});
+server.use(plugins.bodyParser());
 
-teste(server)
+produto(server, pool);
 
 server.listen(3000, function () {
     console.log('%s listening at %s', server.name, server.url);

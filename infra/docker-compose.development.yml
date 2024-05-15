@@ -1,0 +1,14 @@
+version: '2.27'
+services:
+  postgres_dev:
+    container_name: 'postgres-dev'
+    image: 'postgres:14.7-alpine'
+    env_file:
+      - ../.env
+    ports:
+      - '${POSTGRES_PORT}:5432'
+    volumes:
+      - postgres_data:/data/postgres
+    restart: unless-stopped
+volumes:
+  postgres_data:
